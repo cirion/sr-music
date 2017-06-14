@@ -11,6 +11,7 @@
 		B99F61171EEA0BF000CB8410 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F61161EEA0BF000CB8410 /* ViewController.swift */; };
 		B99F61191EEA0BF000CB8410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B99F61181EEA0BF000CB8410 /* Assets.xcassets */; };
 		B99F611C1EEA0BF000CB8410 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B99F611A1EEA0BF000CB8410 /* Main.storyboard */; };
+		B99F61261EF1E5E900CB8410 /* mercury.bin in Resources */ = {isa = PBXBuildFile; fileRef = B99F61251EF1E5E900CB8410 /* mercury.bin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		B99F61181EEA0BF000CB8410 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B99F611B1EEA0BF000CB8410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B99F611D1EEA0BF000CB8410 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B99F61251EF1E5E900CB8410 /* mercury.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = mercury.bin; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +38,7 @@
 		B99F61081EEA0BF000CB8410 = {
 			isa = PBXGroup;
 			children = (
+				B99F61251EF1E5E900CB8410 /* mercury.bin */,
 				B99F61131EEA0BF000CB8410 /* SuperShadowrun */,
 				B99F61121EEA0BF000CB8410 /* Products */,
 			);
@@ -120,6 +123,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B99F61261EF1E5E900CB8410 /* mercury.bin in Resources */,
 				B99F61191EEA0BF000CB8410 /* Assets.xcassets in Resources */,
 				B99F611C1EEA0BF000CB8410 /* Main.storyboard in Resources */,
 			);

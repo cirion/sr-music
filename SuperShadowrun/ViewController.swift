@@ -10,11 +10,14 @@ import Cocoa
 
 class ViewController: NSViewController, NSOpenSavePanelDelegate {
     
+    let originalMusicFileSize = NSNumber.init(value: 107277012)
+    
     //MARK: Properties
     
     @IBOutlet weak var selectButton: NSButtonCell!
     @IBOutlet weak var filePathTextField: NSTextField!
     @IBOutlet weak var convertButton: NSButtonCell!
+    @IBOutlet weak var restoreButton: NSButton!
     
     @IBAction func selectFile(_ sender: Any) {
         
@@ -86,29 +89,66 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         return 0
     }
     
+    @IBAction func restoreOriginalMusic(_ sender: Any) {
+    }
+    
     @IBAction func convert(_ sender: Any) {
         let appRoot = filePathTextField.stringValue;
         let currentMusicFile = appRoot + "/Contents/Data/resources.assets.resS";
+//        let currentMusicFileTest = appRoot + "/Contents/Data/resources.assets.resS.test";
         let backupMusicFile = appRoot + "/Contents/Data/resources.assets.resS.original";
-        let assetsFile = appRoot + "/Contents/Data/resources.assets";
+//        let assetsFile = appRoot + "/Contents/Data/resources.assets";
+        let assetsFile = appRoot + "/Contents/Data/test.txt";
         let fm = FileManager.default
         var canSkipBackup = false;
-        var currentMusicFileSize = 0;
         if (fm.fileExists(atPath: backupMusicFile)) {
-            let attributes = try! fm.attributesOfItem(atPath: backupMusicFile);
-            let size = (attributes[FileAttributeKey.size] as! NSNumber)
-            if (size == 107277012) {
+            let backupFileSize = getFileSizeFor(path: backupMusicFile)
+            if (backupFileSize == originalMusicFileSize) {
                 canSkipBackup = true;
             }
         }
         if (!canSkipBackup) {
+            let currentMusicFileSize = getFileSizeFor(path: currentMusicFile)
+            if (currentMusicFileSize != originalMusicFileSize) {
+                showAlert(message: "WARNING: The current music file size appears incorrect. Please correct by verifying the integrity of Shadowrun Hong Kong within Steam. Aborting.")
+                return;
+            }
             do {
                 try fm.copyItem(atPath: currentMusicFile, toPath: backupMusicFile);
             } catch {
-                showAlert(message: "Ran into a problem");
+                showAlert(message: "Could not back up original music. Aborting.")
+                return
             }
         }
         
+        do {
+            try fm.removeItem(atPath: currentMusicFile)
+        } catch {
+            showAlert(message: "Could not remove original music. Aborting.")
+            return
+        }
+        
+        let bundle = Bundle.main
+        let resourcePath = bundle.path(forResource: "mercury", ofType: "bin")
+        do {
+            try fm.copyItem(atPath: resourcePath!, toPath: currentMusicFile)
+        } catch {
+            showAlert(message: "Could not copy new music. Aborting.")
+            return;
+        }
+        
+        // Edit the file.
+        if let fileHandle = FileHandle(forUpdatingAtPath: assetsFile) {
+            let trackSize = 5123456
+            var value = trackSize
+            let trackSizeData = Data(buffer: UnsafeBufferPointer(start: &value, count: 1))
+            fileHandle.seek(toFileOffset: 4)
+            fileHandle.write(trackSizeData)
+            showAlert(message: "Conversion successful!")
+        } else {
+            showAlert(message: "Could not open resources.assets for editing. Aborting.")
+            return
+        }
     }
     
 }

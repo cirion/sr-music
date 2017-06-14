@@ -707,9 +707,9 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GeV-aL-kCZ">
-                                <rect key="frame" x="196" y="87" width="89" height="32"/>
+                                <rect key="frame" x="154" y="87" width="174" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Convert" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qii-DC-guM">
+                                <buttonCell key="cell" type="push" title="Convert to New Music" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qii-DC-guM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                     <connections>
@@ -717,11 +717,23 @@
                                     </connections>
                                 </buttonCell>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0p-Hk-ZKJ">
+                                <rect key="frame" x="152" y="13" width="177" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Restore Original Music" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vjy-1k-dBR">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="restoreOriginalMusic:" target="XfG-lQ-9wD" id="mdi-fo-5Vb"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="convertButton" destination="Qii-DC-guM" id="gBs-ek-Ih3"/>
                         <outlet property="filePathTextField" destination="O4i-qu-76O" id="Khs-m5-nwW"/>
+                        <outlet property="restoreButton" destination="g0p-Hk-ZKJ" id="IF0-wR-um0"/>
                         <outlet property="selectButton" destination="uwC-6R-HZ8" id="hxo-BS-WW8"/>
                     </connections>
                 </viewController>
