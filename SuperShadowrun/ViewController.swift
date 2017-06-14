@@ -11,6 +11,12 @@ import Cocoa
 class ViewController: NSViewController, NSOpenSavePanelDelegate {
     
     let originalMusicFileSize = NSNumber.init(value: 107277012)
+    let newMusicFileSize = NSNumber.init(value: 6648343)
+    
+    let currentMusicFilePath = "/Contents/Data/resources.assets.resS";
+    let backupMusicFilePath = "/Contents/Data/resources.assets.resS.original";
+    //        let assetsFilePath = appRoot + "/Contents/Data/resources.assets";
+    let assetsFilePath = "/Contents/Data/test.txt";
     
     //MARK: Properties
     
@@ -42,13 +48,21 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
             if (result != nil) {
                 let path = result?.path
                 filePathTextField.stringValue = path!
+                updateButtons()
             }
         } else {
             // User clicked on "Cancel"
             return
         }
-        
-        
+    }
+    
+    func updateButtons() {
+        let fm = FileManager.default;
+        let appRoot = filePathTextField.stringValue
+        let currentMusicFile = appRoot + currentMusicFilePath
+        let backupMusicFile = appRoot + backupMusicFilePath
+        convertButton.isEnabled = fm.fileExists(atPath: currentMusicFile) && getFileSizeFor(path: currentMusicFile) != newMusicFileSize
+        restoreButton.isEnabled = fm.fileExists(atPath: backupMusicFile) && getFileSizeFor(path: currentMusicFile) != getFileSizeFor(path: backupMusicFile)
     }
     
     func panel(_ sender: Any, shouldEnable url: URL) -> Bool {
@@ -62,6 +76,10 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        convertButton.isEnabled = false
+        restoreButton.isEnabled = false
+        filePathTextField.isEditable = false
 
         // Do any additional setup after loading the view.
     }
@@ -90,15 +108,43 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
     }
     
     @IBAction func restoreOriginalMusic(_ sender: Any) {
+        let appRoot = filePathTextField.stringValue
+        let currentMusicFile = appRoot + currentMusicFilePath
+        let backupMusicFile = appRoot + backupMusicFilePath
+        let fm = FileManager.default
+        // Shouldn't be possible since we only enable if the file exists, but just being extra-safe.
+        if (!fm.fileExists(atPath: backupMusicFile)) {
+            showAlert(message: "Backup does not exist. Aborting.")
+            return
+        }
+        if (getFileSizeFor(path: backupMusicFile) != originalMusicFileSize) {
+            showAlert(message: "Found a backup, but it was the wrong size. Please restore by verifying the integrity of Shadowrun Hong Kong within Steam.")
+            return
+        }
+        
+        do {
+            try fm.removeItem(atPath: currentMusicFile)
+        } catch {
+            showAlert(message: "Could not remove updated music. Aborting.")
+            return
+        }
+        
+        do {
+            try fm.copyItem(atPath: backupMusicFile, toPath: currentMusicFile)
+        } catch {
+            showAlert(message: "Could not restore backup. Please restore by verifying the integrity of Shadowrun Hong Kong within Steam.")
+            return
+        }
+        showAlert(message: "Restore successful! The original Hong Kong music will now play for all campaigns.")
+        updateButtons()
     }
     
     @IBAction func convert(_ sender: Any) {
-        let appRoot = filePathTextField.stringValue;
-        let currentMusicFile = appRoot + "/Contents/Data/resources.assets.resS";
-//        let currentMusicFileTest = appRoot + "/Contents/Data/resources.assets.resS.test";
-        let backupMusicFile = appRoot + "/Contents/Data/resources.assets.resS.original";
+        let appRoot = filePathTextField.stringValue
+        let currentMusicFile = appRoot + currentMusicFilePath
+        let backupMusicFile = appRoot + backupMusicFilePath
 //        let assetsFile = appRoot + "/Contents/Data/resources.assets";
-        let assetsFile = appRoot + "/Contents/Data/test.txt";
+        let assetsFile = appRoot + assetsFilePath
         let fm = FileManager.default
         var canSkipBackup = false;
         if (fm.fileExists(atPath: backupMusicFile)) {
@@ -144,11 +190,12 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
             let trackSizeData = Data(buffer: UnsafeBufferPointer(start: &value, count: 1))
             fileHandle.seek(toFileOffset: 4)
             fileHandle.write(trackSizeData)
-            showAlert(message: "Conversion successful!")
         } else {
             showAlert(message: "Could not open resources.assets for editing. Aborting.")
             return
         }
+        showAlert(message: "Conversion successful! The new music will now play for all campaigns, including the original.")
+        updateButtons()
     }
     
 }
