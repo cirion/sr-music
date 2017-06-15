@@ -80,8 +80,6 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         convertButton.isEnabled = false
         restoreButton.isEnabled = false
         filePathTextField.isEditable = false
-
-        // Do any additional setup after loading the view.
     }
 
     override var representedObject: Any? {
@@ -187,11 +185,13 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         if let fileHandle = FileHandle(forUpdatingAtPath: assetsFile) {
             let trackSize = 5123456
             var value = trackSize
-            let trackSizeData = Data(buffer: UnsafeBufferPointer(start: &value, count: 1))
+            let number = Data(bytes: &value, count: 4)
             fileHandle.seek(toFileOffset: 4)
-            fileHandle.write(trackSizeData)
+            fileHandle.write(number)
+            // If writing multiple, only close after they're all done.
+            fileHandle.closeFile()
         } else {
-            showAlert(message: "Could not open resources.assets for editing. Aborting.")
+            showAlert(message: "Could not open resources.assets for editing. Please restore the original music and try again. Aborting.")
             return
         }
         showAlert(message: "Conversion successful! The new music will now play for all campaigns, including the original.")
