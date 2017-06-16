@@ -16,11 +16,10 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
     let currentMusicFilePath = "/Contents/Data/resources.assets.resS";
     let backupMusicFilePath = "/Contents/Data/resources.assets.resS.original";
     let assetsFilePath = "/Contents/Data/resources.assets";
-//    let assetsFilePath = "/Contents/Data/test.txt";
     
-    // Offsets into resources.assets indicating where each track's size and position data is located. 
+    // Offsets into resources.assets indicating where each track's size data is located.
     // Note that these should each be on a 4-byte boundary. The difference between each offset can vary
-    // based on the length of the track name.
+    // based on the length of the track name. The position data is always located 4 bytes after the size data.
     let sizeOffsets: [UInt64] = [
     2002734348, // Hub-TeaHouse
     2002734404, // Hub-Exterior
@@ -121,6 +120,7 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         1951436, // Club88-MainRoom
         1555760  // Combat-VictoriaHarbor-Int2
     ]
+    
     // The index into the original  resources.assets.resS at which each track can be located. Note that this is equivalent
     // to a running total of the values in originalSizeValues because the tracks happen to be listed in order.
     let originalPositionValues: [UInt32] = [
@@ -173,6 +173,7 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         105721252   // Combat-VictoriaHarbor-Int2
     ]
     
+    // TODO: Define with the updated music values.
     // The length in bytes of each new music track.
 //    let newSizeValues: [UInt32] = [3124118, 5637311, 2455468]
     // The index into the new resources.assets.resS at which each track can be located. These do not necessarily need to be
@@ -200,7 +201,6 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         dialog.canChooseDirectories    = true;
         dialog.canCreateDirectories    = false;
         dialog.allowsMultipleSelection = false;
-//        dialog.allowedFileTypes        = ["txt"];
         dialog.delegate = self;
         
         if (dialog.runModal() == NSModalResponseOK) {
@@ -249,12 +249,12 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         }
     }
     
-    func showAlert(message: String) -> Bool {
+    func showAlert(message: String) {
         let alert = NSAlert();
         alert.messageText = message;
         alert.alertStyle = NSAlertStyle.informational;
         alert.addButton(withTitle: "OK");
-        return alert.runModal() == NSAlertFirstButtonReturn
+        alert.runModal()
     }
     
     func getFileSizeFor(path: String) -> NSNumber {
@@ -270,6 +270,7 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         let appRoot = filePathTextField.stringValue
         let currentMusicFile = appRoot + currentMusicFilePath
         let backupMusicFile = appRoot + backupMusicFilePath
+        let assetsFile = appRoot + assetsFilePath
         let fm = FileManager.default
         // Shouldn't be possible since we only enable if the file exists, but just being extra-safe.
         if (!fm.fileExists(atPath: backupMusicFile)) {
@@ -294,15 +295,41 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
             showAlert(message: "Could not restore backup. Please restore by verifying the integrity of Shadowrun Hong Kong within Steam.")
             return
         }
-        showAlert(message: "Restore successful! The original Hong Kong music will now play for all campaigns.")
-        updateButtons()
+        if (writeArrays(filePath: assetsFile, sizes: originalSizeValues, positions: originalPositionValues)) {
+            showAlert(message: "Restore successful! The original Hong Kong music will now play for all campaigns.")
+            updateButtons()
+        }
+    }
+    
+    func writeArrays(filePath: String, sizes: [UInt32], positions: [UInt32]) -> Bool {
+        // Edit the file.
+        if let fileHandle = FileHandle(forUpdatingAtPath: filePath) {
+            
+            for (index, sizeOffset) in sizeOffsets.enumerated() {
+                var originalSizeValue = sizes[index]
+                let originalSizeData = Data(bytes: &originalSizeValue, count: 4)
+                fileHandle.seek(toFileOffset: sizeOffset)
+                fileHandle.write(originalSizeData)
+                var originalPositionValue = positions[index]
+                let originalPositionData = Data(bytes: &originalPositionValue, count: 4)
+                fileHandle.seek(toFileOffset: sizeOffset + 4)
+                fileHandle.write(originalPositionData)
+            }
+            
+            // If writing multiple, only close after they're all done.
+            fileHandle.closeFile()
+            return true
+        } else {
+            showAlert(message: "Could not open resources.assets for editing. Aborting.")
+            return false
+        }
+        
     }
     
     @IBAction func convert(_ sender: Any) {
         let appRoot = filePathTextField.stringValue
         let currentMusicFile = appRoot + currentMusicFilePath
         let backupMusicFile = appRoot + backupMusicFilePath
-//        let assetsFile = appRoot + "/Contents/Data/resources.assets";
         let assetsFile = appRoot + assetsFilePath
         let fm = FileManager.default
         var canSkipBackup = false;
@@ -342,31 +369,11 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
             return;
         }
         
-        // Edit the file.
-        if let fileHandle = FileHandle(forUpdatingAtPath: assetsFile) {
-            
-            for (index, sizeOffset) in sizeOffsets.enumerated() {
-//                let trackSize = 5123456
-//                var fileOffset = sizeOffset
-                // TODO: Should write new, not original, here.
-                var originalSizeValue = originalSizeValues[index]
-                let originalSizeData = Data(bytes: &originalSizeValue, count: 4)
-                fileHandle.seek(toFileOffset: sizeOffset)
-                fileHandle.write(originalSizeData)
-                var originalPositionValue = originalPositionValues[index]
-                let originalPositionData = Data(bytes: &originalPositionValue, count: 4)
-                fileHandle.seek(toFileOffset: sizeOffset + 4)
-                fileHandle.write(originalPositionData)
-            }
-            
-            // If writing multiple, only close after they're all done.
-            fileHandle.closeFile()
-        } else {
-            showAlert(message: "Could not open resources.assets for editing. Please restore the original music and try again. Aborting.")
-            return
+        // TODO: Pass in the new values here instead of the originals.
+        if (writeArrays(filePath: assetsFile, sizes: originalSizeValues, positions: originalPositionValues)) {
+            showAlert(message: "Conversion successful! The new music will now play for all campaigns, including the original.")
+            updateButtons()
         }
-        showAlert(message: "Conversion successful! The new music will now play for all campaigns, including the original.")
-        updateButtons()
     }
     
 }
