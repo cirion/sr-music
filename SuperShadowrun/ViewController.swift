@@ -25,7 +25,7 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
     2002734404, // Hub-Exterior
     2002734464, // Combat-Generic-Int2
     2002734520, // Legwork-SLinterior
-    2002734572, // TitleTheme-UI
+    2002734572, // TitleTheme-UI  // INDEX 4: This is hard-coded to play over the main title screen.
     2002734628, // Combat-Matrix2
     2002734688, // Combat-Kowloon-Int2
     2002734744, // Combat-Gobbet-Int1
