@@ -1,6 +1,15 @@
 import os
 import contextlib
 
+#
+# Usage: python concat.py
+# Working directory must contain songs.txt, which must contain a list of paths to .ogg files
+# On completion, the working directory will contain the following files.
+# resources.assets.resS: Concatenation of all ogg files. Can be dropped into SRHK Contents/Data/resources.assets.resS
+#   or placed into SuperShadowrun as the conversion file.
+# indices.txt: Index into the new resources.assets.resS for each track. Can be placed into newPositionValues.
+# lengths.txt: Size of each track. Can be placed into newSizeValues.
+# mapping.txt: Describes what new track will be played for each original track. Very useful for work within the editor.
 
 def remove(filename):
     try:
@@ -75,9 +84,9 @@ with open(FILE_LENGTHS, "a") as lengths, open(FILE_INDICES, "a") as indices, ope
     for line in fp:
         line = line.strip()
         size = os.path.getsize(line)
-        lengths.write(str(size) + "\n")
-        indices.write(str(totalSize) + "\n")
-        mapping.write(line + " -> " + ORIGINAL_NAMES[index] + "\n")
+        lengths.write(str(size) + ",\n")
+        indices.write(str(totalSize) + ",\n")
+        mapping.write(ORIGINAL_NAMES[index].ljust(25) + " -> " + line + "\n")
         index += 1
         totalSize += size
         with open(line, "rb") as music:

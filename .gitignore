@@ -1,3 +1,7 @@
+resources.assets.resS
+*.swp
+*.bak
+
 ## Build generated
 build/
 DerivedData/
