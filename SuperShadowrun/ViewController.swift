@@ -10,7 +10,7 @@ import Cocoa
 class ViewController: NSViewController, NSOpenSavePanelDelegate {
     
     let originalMusicFileSize = NSNumber.init(value: 107277012)
-    let newMusicFileSize = NSNumber.init(value: 188082965)
+    let newMusicFileSize = NSNumber.init(value: 133545950)
     
     let currentMusicFilePath = "/Contents/Data/resources.assets.resS";
     let backupMusicFilePath = "/Contents/Data/resources.assets.resS.original";
@@ -172,6 +172,58 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         105721252   // Combat-VictoriaHarbor-Int2
     ]
     
+    // Current mapping.
+    /*
+     Hub-TeaHouse              -> ../music/vlc_converted/track0.ogg
+     Hub-Exterior              -> ../music/vlc_converted/track1.ogg
+     Combat-Generic-Int2       -> ../music/vlc_converted/track3.ogg
+     Legwork-SLinterior        -> ../music/vlc_converted/track5.ogg
+     TitleTheme-UI             -> invocationarray_acff/04siren.ogg
+     Combat-Matrix2            -> ../music/combat_matrix2.ogg
+     Combat-Kowloon-Int2       -> invocationarray_op/06catalyst.ogg
+     Combat-Gobbet-Int1        -> ../music/vlc_converted/track6.ogg
+     Combat-Kowloon-WrapUp     -> ../music/vlc_converted/track7.ogg
+     Hub-SafeHouse             -> ../music/vlc_converted/track9.ogg
+     Combat-Is0bel-Int2        -> ../music/vlc_converted/track12.ogg
+     Legwork-Generic           -> ../music/vlc_converted/track14.ogg
+     Combat-Kowloon-Int1       -> ../music/vlc_converted/track16.ogg
+     Combat-Gobbet-WrapUp      -> ../music/vlc_converted/track17.ogg
+     Legwork-Is0bel            -> ../music/vlc_converted/track18.ogg
+     Legwork-Erhu              -> ../music/vlc_converted/track22.ogg
+     Legwork-Grendel           -> ../music/vlc_converted/track24.ogg
+     Legwork-ExitStageLeft     -> ../music/vlc_converted/track26.ogg
+     TESTSTINGER               -> ../music/vlc_converted/track27.ogg
+     Hub-Club88-ThroughWalls   -> ../music/vlc_converted/track30.ogg
+     Legwork-News              -> ../music/vlc_converted/track32.ogg
+     Combat-Boss               -> ../music/vlc_converted/track33.ogg
+     loudmusic                 -> ../music/vlc_converted/track34.ogg
+     Legwork-Whistleblower     -> ../music/vlc_converted/track35.ogg
+     Combat-Is0bel-Int1        -> ../music/vlc_converted/track36.ogg
+     Combat-Generic-WrapUp     -> ../music/vlc_converted/track37.ogg
+     Combat-Generic-Int1       -> ../music/vlc_converted/track38.ogg
+     Hub-Club88-InStreet       -> ../music/vlc_converted/track39.ogg
+     Legwork-Kowloon           -> ../music/vlc_converted/track41.ogg
+     Combat-stinger-end        -> ../music/vlc_converted/track43.ogg
+     Combat-VictoriaHarbor-WrapUp -> ../music/vlc_converted/track49.ogg
+     Combat-Grendel-Int1       -> ../music/vlc_converted/track46.ogg
+     Legwork-Museum            -> ../music/vlc_converted/track47.ogg
+     Sewer                     -> ../music/vlc_converted/track48.ogg
+     Stealth-Matrix1           -> ../music/stealth_matrix1.ogg
+     Legwork-Gobbet            -> ../music/vlc_converted/track50.ogg
+     Legwork-Hacking           -> ../music/legwork_hacking.ogg
+     Combat-Grendel-WrapUp     -> ../music/vlc_converted/track53.ogg
+     KnightKingsElevator       -> ../music/vlc_converted/track51.ogg
+     Legwork-VictoriaHarbor    -> ../music/vlc_converted/track54.ogg
+     Combat-Grendel-Int2       -> ../music/vlc_converted/track55.ogg
+     Combat-Is0bel-WrapUp      -> ../music/vlc_converted/track57.ogg
+     Combat-VictoriaHarbor-Int1 -> ../music/vlc_converted/track58.ogg
+     Combat-stinger-start      -> ../music/vlc_converted/track59.ogg
+     Combat-Gobbet-Int2        -> ../music/vlc_converted/track60.ogg
+     Club88-MainRoom           -> invocationarray_acff/08withme.ogg
+     Combat-VictoriaHarbor-Int2 -> invocationarray_op/16catalyst.ogg
+     */
+    
+    
     // The index into the new resources.assets.resS at which each track can be located. If using concat.py,
     // these values can be taken from indices.txt. Pad out the array to 47 elements, you can safely reuse the
     // same track multiple times. These do not necessarily need to be in ascending order.
@@ -179,50 +231,50 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         0,
         1393879,
         3014944,
-        6474034,
-        7979439,
-        9390829,
-        10946166,
-        14574428,
-        17633789,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
+        4520349,
+        6075686,
+        13224667,
+        16859277,
+        23705366,
+        27333628,
+        30392989,
+        31785729,
+        36227626,
+        37558729,
+        39215240,
+        42753645,
+        48193852,
+        50059652,
+        52826294,
+        58756297,
+        60484053,
+        61866854,
+        64926321,
+        67814125,
+        69554962,
+        70868771,
+        74036566,
+        77274731,
+        78780769,
+        80649419,
+        82085067,
+        83502179,
+        85835133,
+        89345991,
+        90902926,
+        92457982,
+        96090766,
+        99115787,
+        100674517,
+        102037008,
+        104243280,
+        107256232,
+        111057445,
+        113768371,
+        115841178,
+        117621935,
+        118888656,
+        126481541
     ]
     
     // The length in bytes of each new music track. Must match the order of tracks in newPositionValues. If using
@@ -230,51 +282,51 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
     let newSizeValues: [UInt32] = [
         1393879,
         1621065,
-        3459090,
         1505405,
-        1411390,
         1555337,
+        7148981,
+        3634610,
+        6846089,
         3628262,
         3059361,
-        1478457,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
-        1393879,
+        1392740,
+        4441897,
+        1331103,
+        1656511,
+        3538405,
+        5440207,
+        1865800,
+        2766642,
+        5930003,
+        1727756,
+        1382801,
+        3059467,
+        2887804,
+        1740837,
+        1313809,
+        3167795,
+        3238165,
+        1506038,
+        1868650,
+        1435648,
+        1417112,
+        2332954,
+        3510858,
+        1556935,
+        1555056,
+        3632784,
+        3025021,
+        1558730,
+        1362491,
+        2206272,
+        3012952,
+        3801213,
+        2710926,
+        2072807,
+        1780757,
+        1266721,
+        7592885,
+        7064409
     ]
 
     //MARK: Properties
@@ -467,7 +519,7 @@ class ViewController: NSViewController, NSOpenSavePanelDelegate {
         }
         
         if (writeArrays(filePath: assetsFile, sizes: newSizeValues, positions: newPositionValues)) {
-            showAlert(message: "Conversion successful! The new music will now play for all campaigns, including the original.")
+            showAlert(message: "Conversion successful! The new music will now play for all campaigns, including the official one.")
             updateButtons()
         }
     }

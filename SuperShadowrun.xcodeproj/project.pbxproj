@@ -21,7 +21,6 @@
 		B99F61181EEA0BF000CB8410 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B99F611B1EEA0BF000CB8410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B99F611D1EEA0BF000CB8410 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B99F61251EF1E5E900CB8410 /* mercury.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = mercury.bin; sourceTree = "<group>"; };
 		B9AC6CBD1FA3D73E0074E933 /* resources.assets.resS */ = {isa = PBXFileReference; lastKnownFileType = file; path = resources.assets.resS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -40,7 +39,6 @@
 			isa = PBXGroup;
 			children = (
 				B9AC6CBD1FA3D73E0074E933 /* resources.assets.resS */,
-				B99F61251EF1E5E900CB8410 /* mercury.bin */,
 				B99F61131EEA0BF000CB8410 /* SuperShadowrun */,
 				B99F61121EEA0BF000CB8410 /* Products */,
 			);
@@ -257,7 +255,7 @@
 				INFOPLIST_FILE = SuperShadowrun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.cirion.SuperShadowrun;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Shadowrun Hong Kong Music Replacer";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -270,7 +268,7 @@
 				INFOPLIST_FILE = SuperShadowrun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.cirion.SuperShadowrun;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Shadowrun Hong Kong Music Replacer";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
