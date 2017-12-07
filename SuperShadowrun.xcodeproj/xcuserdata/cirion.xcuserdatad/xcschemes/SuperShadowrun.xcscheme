@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B99F61101EEA0BF000CB8410"
-               BuildableName = "SuperShadowrun.app"
+               BuildableName = "Shadowrun Hong Kong Music Replacer.app"
                BlueprintName = "SuperShadowrun"
                ReferencedContainer = "container:SuperShadowrun.xcodeproj">
             </BuildableReference>
@@ -34,7 +34,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B99F61101EEA0BF000CB8410"
-            BuildableName = "SuperShadowrun.app"
+            BuildableName = "Shadowrun Hong Kong Music Replacer.app"
             BlueprintName = "SuperShadowrun"
             ReferencedContainer = "container:SuperShadowrun.xcodeproj">
          </BuildableReference>
@@ -58,7 +58,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B99F61101EEA0BF000CB8410"
-            BuildableName = "SuperShadowrun.app"
+            BuildableName = "Shadowrun Hong Kong Music Replacer.app"
             BlueprintName = "SuperShadowrun"
             ReferencedContainer = "container:SuperShadowrun.xcodeproj">
          </BuildableReference>
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B99F61101EEA0BF000CB8410"
-            BuildableName = "SuperShadowrun.app"
+            BuildableName = "Shadowrun Hong Kong Music Replacer.app"
             BlueprintName = "SuperShadowrun"
             ReferencedContainer = "container:SuperShadowrun.xcodeproj">
          </BuildableReference>
